@@ -54,3 +54,5 @@ end
 group :test do
   gem "capybara", "~> 3.40"
 end
+
+gem "tailwindcss-rails", "~> 2.7"
