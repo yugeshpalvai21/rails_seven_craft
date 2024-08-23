@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :tasks, only: [ :index ]
+  resources :tasks, only: [ :index ] do
+    patch :sort, on: :collection
+  end
 
   root "tasks#index"
 end
