@@ -12,6 +12,30 @@
 
 */
 
-body {
-  background-color:#DCDCDC;
+/* Placeholder styling */
+.drag-placeholder {
+  background-color: #f3f4f6; /* Light gray background */
+  border: 2px dashed #cbd5e0; /* Dashed border for the placeholder */
+  height: 150px; /* Match the original card height */
+  opacity: 0.5; /* Slight transparency for the placeholder */
 }
+
+/* Styling for the element being dragged */
+.chosen-task {
+  opacity: 0.8;
+  transform: scale(1.05); /* Slight scale for better visual effect */
+  cursor: grabbing;
+}
+
+/* Smooth drag effect for the dragged item */
+.dragging-task {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  transition: transform 0.3s ease; /* Smooth transition effect */
+  cursor: grabbing;
+}
+
+/* Smooth transition for the other cards when the dragged item moves */
+.sortable-list .task-item {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth transition for moving cards */
+}
+

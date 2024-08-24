@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks= Task.all
+    @tasks= Task.order(:position)
   end
 
   def sort
-    params[:tasks].each_with_index do |id, index|
+    params[:task].each_with_index do |id, index|
       Task.find(id).update(position: index + 1)
     end
 
