@@ -2,16 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
 
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter',sans-serif;
 }
 
-*/
-
 body {
-  background-color:#DCDCDC;
+  background-color: lightslategray;
+}
+
+/* Placeholder styling when dragging */
+.drag-placeholder {
+  background-color: #f0f0f0;
+  border: 2px dashed #d1d5db;
+  height: 220px;
+  opacity: 0.7;
+}
+
+/* Styling for the element being dragged */
+.chosen-task {
+  transform: scale(1.05);
+  cursor: grabbing;
+  z-index: 50;
+}
+
+/* Enhanced drag effect */
+.dragging-task {
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: grabbing;
+}
+
+/* Smooth transitions for cards when moving */
+.task-item {
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
