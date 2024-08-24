@@ -11,7 +11,7 @@
 9.times do |record_num|
   Task.create!(
     title: "Task #{record_num}",
-    thumb_image: 'https://place-hold.it/150x150',
+    thumb_image: 'https://place-hold.it/100x100',
     position: record_num + 1
   )
 end

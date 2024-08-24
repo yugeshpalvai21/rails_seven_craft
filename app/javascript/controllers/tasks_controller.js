@@ -4,11 +4,10 @@ import Sortable from "sortablejs";
 export default class extends Controller {
   connect() {
     this.sortable = Sortable.create(this.element, {
-      animation: 300, // Increased animation time for smoother transitions
-      ghostClass: "drag-placeholder", // Placeholder class
-      chosenClass: "chosen-task", // Class for the item being dragged
-      dragClass: "dragging-task", // Class for smooth dragging
-      easing: "cubic-bezier(0.25, 1, 0.5, 1)", // Smooth easing for transitions
+      animation: 300,
+      ghostClass: "drag-placeholder",
+      chosenClass: "chosen-task",
+      dragClass: "dragging-task",
       onEnd: this.end.bind(this),
     });
   }
