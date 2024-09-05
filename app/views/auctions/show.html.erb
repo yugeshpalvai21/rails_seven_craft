@@ -1,0 +1,15 @@
+<h1><%= @auction.title %></h1>
+<p><%= @auction.description %></p>
+<p>Current Price: <%= @auction.current_price %></p>
+
+<h2>Bids</h2>
+<ul>
+  <% @auction.bids.each do |bid| %>
+    <li>$<%= bid.amount %></li>
+  <% end %>
+</ul>
+
+<%= form_with(model: [@auction, @bid], local: true) do |form| %>
+  <%= form.number_field :amount, step: 0.01 %>
+  <%= form.submit "Place Bid" %>
+<% end %>
