@@ -13,7 +13,7 @@ export default class extends Controller {
         {
           received: (data) => {
             console.log(this);
-            this.bidsTarget.insertAdjacentHTML("beforeend", data.bid);
+            this.bidsTarget.insertAdjacentHTML("afterbegin", data.bid);
           },
         }
       );
