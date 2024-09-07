@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   root "tasks#index"
 
-  resources :auctions, only: [ :index, :show ] do
+  resources :auctions, only: [ :new, :create, :index, :show ] do
     resources :bids, only: [ :create ]
   end
 end

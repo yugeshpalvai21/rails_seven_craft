@@ -1,24 +1,15 @@
-<div class="container mx-auto p-8">
-  <h1 class="text-4xl font-bold mb-6 text-center">Auctions</h1>
-  <!-- Create a grid with 3 columns on medium screens and larger -->
+<h1 class="text-3xl font-bold text-center my-6">Auctions</h1>
+
+<div class="container mx-auto px-4">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     <% @auctions.each do |auction| %>
-      <div class="bg-white shadow-md rounded-lg p-4 h-full">
-        <!-- Auction title, centered and bold -->
-        <div class="text-center">
-          <h2 class="text-xl font-bold"><%= link_to auction.title, auction_path(auction) %></h2>
-        </div>
-
-        <!-- Auction description -->
-        <div class="mt-2 flex-grow">
-          <p class="text-gray-600"><%= auction.description %></p>
-        </div>
-
-        <!-- Footer with starting price and current price  -->
-        <div class="items-center mt-3 border-t pt-4">
-          <hr />
-          <p>Starting Price: $<%= auction.starting_price %></p>
-          <p>Current Bid: $<%= auction.current_price %></p>
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4"><%= link_to auction.title, auction_path(auction) %></h2>
+        <p class="text-gray-700 mb-4"><%= auction.description %></p>
+        <hr class="border-t border-gray-300 my-4">
+        <div class="space-y-2 text-left text-gray-500 text-sm">
+          <p>Starting Price: <%= number_to_currency(auction.starting_price, precision: 2) %></p>
+          <p>Current Price: <%= number_to_currency(auction.current_price, precision: 2) %></p>
         </div>
       </div>
     <% end %>

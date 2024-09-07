@@ -1,33 +1,33 @@
-<div class="container mx-auto mt-2">
-  <div class="p-8">
-    <!-- Auction details card -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6 mt-2">
-      <h1 class="text-3xl font-bold mb-2"><%= @auction.title %></h1>
-      <p class="text-gray-600 mb-4"><%= @auction.description %></p>
-      <div class="flex justify-between items-center border-t pt-2">
-        <span class="text-gray-500">Starting Price: $<%= @auction.starting_price %></span>
-        <span class="font-semibold text-green-600">Current Bid: $<%= @auction.current_price %></span>
-      </div>
+<%= tag.meta name: "auction-id", content: @auction.id %>
+
+<h1 class="text-3xl font-bold text-center my-6"><%= @auction.title %></h1>
+
+<div class="container mx-auto px-4">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Auction Details -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-4"><%= @auction.title %></h2>
+      <p class="text-gray-700 mb-4"><%= @auction.description %></p>
+      <p class="text-gray-500 text-sm mb-2">Starting Price: <%= number_to_currency(@auction.starting_price, precision: 2) %></p>
+      <p class="text-gray-500 text-sm">Current Price: <%= number_to_currency(@auction.current_price, precision: 2) %></p>
     </div>
 
-    <!-- Bids list card -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6 mt-2">
-      <h2 class="text-2xl font-semibold mb-4">Bids</h2>
-      <div>
-        <% @auction.bids.each do |bid| %>
-          <div class="py-2 border-b">
-            <p class="text-lg">$<%= bid.amount %></p>
-          </div>
-        <% end %>
-      </div>
+    <!-- All Bids -->
+    <div id="bids-container" data-controller="auction-channel" data-auction-id="<%= @auction.id %>"  data-auction-channel-target="bids" class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-xl font-bold mb-4">Bids</h3>
+      <% @bids.each do |bid| %>
+        <%= render 'bids/bid', bid: bid %>
+      <% end %>
     </div>
-
-    <!-- Bid form card -->
-    <div class="bg-white shadow-md rounded-lg p-6 mt-2">
-      <h2 class="text-2xl font-semibold mb-4">Place a Bid</h2>
-      <%= form_with(model: [@auction, @bid], local: true, class: "space-y-4") do |form| %>
-        <%= form.number_field :amount, step: 0.01, class: "border rounded-lg w-full p-2" %>
-        <%= form.submit "Place Bid", class: "bg-blue-500 text-white rounded-lg px-4 py-2" %>
+    
+   <!-- Bid Form -->
+   <div class="bg-white shadow-md rounded-lg p-6">
+      <%= form_with(model: [@auction, @bid], remote: true, data: { controller: "bids", action: "turbo:submit-end->bids#handleSubmit" }) do |form| %>
+        <div class="mb-4">
+          <%= form.label :amount, "Bid Amount", class: "block text-gray-700 font-semibold mb-2" %>
+          <%= form.number_field :amount, class: "w-full border border-gray-300 rounded-lg p-2", step: "0.01", min: "0.01", data: { bids_target: "form" } %>
+        </div>
+        <%= form.submit "Place Bid", class: "bg-blue-500 text-white px-4 py-2 rounded-lg" %>
       <% end %>
     </div>
   </div>
