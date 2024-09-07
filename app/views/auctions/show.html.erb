@@ -1,0 +1,35 @@
+<%= tag.meta name: "auction-id", content: @auction.id %>
+
+<h1 class="text-3xl font-bold text-center my-6"><%= @auction.title %></h1>
+
+<div class="container mx-auto px-4">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Auction Details -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <p class="text-gray-700 mb-4"><%= @auction.description %></p>
+      <p class="text-gray-500 text-sm mb-2">Starting Price: <span class="font-bold"><%= number_to_currency(@auction.starting_price, precision: 2) %></span></p>
+      <p class="text-gray-500 text-sm">Current Price: <span class="font-bold"><%= number_to_currency(@auction.current_price, precision: 2) %></span></p>
+    </div>
+
+    <!-- All Bids -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-3xl font-bold mb-4">Bids</h3> <br />
+      <div id="bids-container" data-controller="auction-channel" data-auction-id="<%= @auction.id %>"  data-auction-channel-target="bids">
+        <% @bids.each do |bid| %>
+          <%= render 'bids/bid', bid: bid %>
+        <% end %>
+      </div>
+    </div>
+    
+   <!-- Bid Form -->
+   <div class="bg-white shadow-md rounded-lg p-6">
+      <%= form_with(model: [@auction, @bid], remote: true, data: { controller: "bids", action: "turbo:submit-end->bids#handleSubmit" }) do |form| %>
+        <div class="mb-4">
+          <%= form.label :amount, "Bid Amount", class: "block text-gray-700 font-semibold mb-2" %>
+          <%= form.number_field :amount, class: "w-full border border-gray-300 rounded-lg p-2", step: "0.01", min: "0.01", data: { bids_target: "form" } %>
+        </div>
+        <%= form.submit "Place Bid", class: "bg-blue-500 text-white px-4 py-2 rounded-lg" %>
+      <% end %>
+    </div>
+  </div>
+</div>

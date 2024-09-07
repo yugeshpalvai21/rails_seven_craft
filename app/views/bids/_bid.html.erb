@@ -1,0 +1,5 @@
+<div class="mb-2">
+  <p class="text-gray-700">Bid Amount: <span class="font-bold"><%= number_to_currency(bid.amount, precision: 2) %></span></p>
+  <p class="text-gray-500 text-sm">Bid Time: <span class="font-bold"><%= bid.created_at.strftime("%Y-%m-%d %H:%M") %></span></p><br />
+  <hr class="border-t border-gray-300 my-4">
+</div>
